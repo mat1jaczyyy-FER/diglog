@@ -4,7 +4,7 @@
     <Implementation title="impl1" dir="impl1" description="impl1" synthesis="synplify" default_strategy="Strategy1">
         <Options def_top="lab2"/>
         <Source name="lab2.sch" type="Schematic" type_short="Schematic">
-            <Options/>
+            <Options top_module="lab2"/>
         </Source>
         <Source name="serial_tx.vhd" type="VHDL" type_short="VHDL">
             <Options/>
