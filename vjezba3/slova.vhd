@@ -34,10 +34,11 @@ begin
 		"01101001" when "10001",
 		"--------" when others;
 	
-	with sw(0) select
+	with sw(3 downto 2) select
 	code <=
-		slova when '0',
-		brojke when '1';
+		brojke when "01",
+		slova when "10",
+		"--------" when others;
 
     led <= code;
 
