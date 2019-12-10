@@ -12,9 +12,9 @@ entity datapath is
 end datapath;
 
 architecture behavioral of datapath is
-    signal signal_addr_a, signal_addr_b: std_logic_vector(1 downto 0);
+    signal signal_addr_a, signal_addr_b, concat: std_logic_vector(1 downto 0);
     signal signal_op: std_logic_vector(2 downto 0);
-    signal signal_clk: std_logic;
+    signal signal_clk, check: std_logic;
     signal signal_reg, signal_alu_a, signal_alu_z, signal_alu_b: std_logic_vector(3 downto 0);
 
 begin
@@ -41,6 +41,13 @@ begin
 		clk_25m => clk_25m
     );
     
+    spoj_constmux: entity constmux port map(
+	    addr => check,
+	    reg => signal_reg,
+		switches => sw,
+		result => signal_alu_b
+	);
+    
     spoj_alu: entity alu port map(
 	    alu_a => signal_alu_a,
 	    alu_b => signal_alu_b,
@@ -48,11 +55,8 @@ begin
 	    alu_z => signal_alu_z
 	);
 	
+	concat <= signal_addr_a(1) & signal_addr_b(1);
+    check <= '1' when concat = "10" else '0';
+	
     led <= signal_addr_a & signal_addr_b & signal_clk & signal_op when btn_center = '0' else signal_alu_a & signal_reg;
-    
-    with signal_addr_b select
-    signal_alu_b <=
-		sw         when "00",
-	    signal_reg when others;
 end;
-
