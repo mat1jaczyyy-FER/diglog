@@ -9,6 +9,9 @@
         <Source name="broj_ce.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
             <Options/>
         </Source>
+        <Source name="upravljac.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
         <Source name="broj8.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="broj"/>
         </Source>
