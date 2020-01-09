@@ -12,7 +12,10 @@
         <Source name="upravljac.vhd" type="VHDL" type_short="VHDL">
             <Options/>
         </Source>
-        <Source name="broj8.vhd" type="VHDL" type_short="VHDL">
+        <Source name="broj8.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
+            <Options/>
+        </Source>
+        <Source name="broj8_ar.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="broj"/>
         </Source>
         <Source name="ulx2s.lpf" type="Logic Preference" type_short="LPF">
