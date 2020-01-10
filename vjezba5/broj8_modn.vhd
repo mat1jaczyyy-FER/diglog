@@ -3,9 +3,13 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
 entity broj is
+    generic (
+        MIN_VALUE: std_logic_vector(7 downto 0) := x"03";
+        MAX_VALUE: std_logic_vector(7 downto 0) := x"0D"
+    );
     port (
 		clk_25m: in std_logic;
-		btn_down, btn_center: in std_logic;
+		btn_down, btn_up, btn_center: in std_logic;
 		led: out std_logic_vector(7 downto 0)
     );
 end broj;
@@ -28,18 +32,16 @@ begin
 		Clk => clk
     );
 	
-    process(clk, btn_center)
+    process(clk, btn_up, btn_center)
     begin
-        if rising_edge(clk) then
-			if btn_center = '1' then
-				R <= "00000000";
-			else 
+		if btn_up = '1' then
+			if rising_edge(clk) then
 				R <= R + 1;
 			end if;
-	    end if;
-		
-	    if R = 68 then
-	        R <= "00000000";
+			
+			if btn_center = '1' or R < MIN_VALUE or R >= MAX_VALUE then
+				R <= MIN_VALUE;
+			end if;
 		end if;
     end process;
 
