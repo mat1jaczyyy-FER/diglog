@@ -6,11 +6,11 @@
         <Source name="sem_automat.vhd" type="VHDL" type_short="VHDL">
             <Options/>
         </Source>
-        <Source name="sem_automat_pokvareni.vhd" type="VHDL" type_short="VHDL">
+        <Source name="sem_automat_pokvareni.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
             <Options/>
         </Source>
         <Source name="sem_toplevel.vhd" type="VHDL" type_short="VHDL">
-            <Options/>
+            <Options top_module="sem"/>
         </Source>
         <Source name="ulx2s.lpf" type="Logic Preference" type_short="LPF">
             <Options/>
