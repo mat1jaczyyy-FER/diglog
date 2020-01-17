@@ -35,7 +35,7 @@ begin
     begin
 	if rising_edge(clk) then
 	    if mijenjaj_stanje = '1' then
-			R_timer <= 0;
+			R_timer <= x"00";
 	    else
 			R_timer <= R_timer + 1;
 	    end if;
