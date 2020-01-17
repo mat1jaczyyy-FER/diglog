@@ -10,7 +10,7 @@ entity sem_automat is
 end sem_automat;
 
 architecture mix_moore_mealy of sem_automat is
-    type sem_rom_type is array(0 to 7) of std_logic_vector(4 downto 0);
+    type sem_rom_type is array(0 to 11) of std_logic_vector(4 downto 0);
     constant moore_rom: sem_rom_type := (
 		"01000",
 		"00000",
@@ -20,14 +20,18 @@ architecture mix_moore_mealy of sem_automat is
 		"10010",
 		"11010",
 		"00110",
+		"10101",
+		"01010",
+		"00100",
+		"10001",
 		others => "-----" 
     );
 
-    signal R_timer: std_logic_vector(7 downto 0);
-    signal R_stanje: std_logic_vector(2 downto 0);
+    signal R_timer: std_logic_vector(4 downto 0);
+    signal R_stanje: std_logic_vector(3 downto 0);
 
     signal mijenjaj_stanje: std_logic;
-	signal novo_stanje: std_logic_vector(2 downto 0);
+	signal novo_stanje: std_logic_vector(3 downto 0);
     signal moore_rom_out: std_logic_vector(4 downto 0);
 
 begin
@@ -35,7 +39,7 @@ begin
     begin
 	if rising_edge(clk) then
 	    if mijenjaj_stanje = '1' then
-			R_timer <= x"00";
+			R_timer <= "00000";
 	    else
 			R_timer <= R_timer + 1;
 	    end if;
@@ -43,8 +47,8 @@ begin
     end process;
 
 	novo_stanje <=
-		"000" when vanjski_reset = '1' and R_stanje /= 0 else
-		"010" when R_stanje = 7 else
+		"0000" when vanjski_reset = '1' and R_stanje /= 0 else
+		"0010" when R_stanje = 11 else
 		R_stanje + 1;
 
     process(clk, mijenjaj_stanje)
@@ -63,7 +67,11 @@ begin
 		(R_stanje = 4 and R_timer = 8) or
 		(R_stanje = 5 and R_timer = 4) or
 		(R_stanje = 6 and R_timer = 3) or
-		(R_stanje = 7 and R_timer = 13)
+		(R_stanje = 7 and R_timer = 13) or
+		(R_stanje = 8 and R_timer = 20) or
+		(R_stanje = 9 and R_timer = 10) or
+		(R_stanje = 10 and R_timer = 3) or
+		(R_stanje = 11 and R_timer = 16)
 		else '0';
 
     moore_rom_out <= moore_rom(conv_integer(R_stanje));

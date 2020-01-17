@@ -18,7 +18,7 @@ begin
 
     -- Generator takta cca. 1.5 Hz (25 MHz / 2^24)
     R_clk_div <= R_clk_div + 1 when rising_edge(clk_25m);
-    clk <= R_clk_div(23);
+    clk <= R_clk_div(21);
 
     -- Automat za upravljanje semaforom
     I_automat: entity work.sem_automat
